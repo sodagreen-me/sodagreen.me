@@ -1,0 +1,35 @@
+---
+import type { ProjectKey, CategoryKey } from '../data/projects';
+import { translations } from '../data/i18n';
+
+interface Props {
+  projectKey: ProjectKey;
+  category: CategoryKey;
+  icon: string;
+  url: string;
+}
+
+const { projectKey, category, icon, url } = Astro.props;
+const defaultT = translations['zh-Hant'];
+const project = defaultT.projects[projectKey];
+const catLabel = defaultT.categories[category];
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group flex h-full flex-col justify-between rounded-2xl border border-black/5 bg-white/80 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#18794E] hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-[#18794E] dark:hover:bg-white/10 dark:hover:shadow-none"
+>
+  <div class="flex items-start gap-5">
+    <img src={icon} alt={project.title} class="h-16 w-16 shrink-0 rounded-xl object-cover" onerror="this.style.display='none'" />
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2">
+        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 dark:text-white dark:group-hover:text-white/90" data-project-field="title">{project.title}</h3>
+        <span class="shrink-0 rounded-full bg-[rgba(16,185,129,0.14)] px-2.5 py-0.5 text-xs text-[#18794E] dark:bg-[rgba(16,185,129,0.2)] dark:text-[#34d399] cat-display">{catLabel}</span>
+      </div>
+      <span class="mt-1.5 block text-sm font-medium text-[#18794E] transition-colors group-hover:text-[#18794E]/80 dark:text-[#34d399] dark:group-hover:text-[#34d399]/80 url-display">{project.urlDisplay}</span>
+    </div>
+  </div>
+  <p class="mt-4 text-xs text-gray-400 dark:text-white/40 desc-text">{project.description}</p>
+</a>

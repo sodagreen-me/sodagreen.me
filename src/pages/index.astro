@@ -1,13 +1,317 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects, categoryKeys } from '../data/projects';
+import { linkGroups } from '../data/links';
+import { getIcon } from '../data/icons';
+import { translations } from '../data/i18n';
+
+import bgMobile from '../images/bg-mobile.jpg';
+import bgDesktop from '../images/bg.jpg';
+
+const defaultT = translations['zh-Hant'];
 ---
 
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>蘇打綠 | Sodagreen</title>
-  </head>
-  <body>
-    <h1>苏打绿</h1>
-  </body>
-</html>
+<Layout title={defaultT.pageTitle}>
+  <main class="relative flex min-h-screen flex-col items-center overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-gradient-to-b from-gray-100 to-gray-200 dark:from-[#0f0f23] dark:to-[#0a0a18]" id="hero-bg"
+      style={`background-image: url('${bgMobile.src}');`}
+      data-bg-mobile={bgMobile.src}
+      data-bg-desktop={bgDesktop.src}
+    ></div>
+    <div class="absolute inset-0 bg-white/80 dark:bg-black/60"></div>
+    <div class="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 px-4 py-20 text-center md:py-28">
+      <div class="flex flex-col items-center gap-1">
+        <h1 class="text-3xl font-bold tracking-wide text-gray-900 md:text-4xl dark:text-white" data-i18n="heroTitle">{defaultT.heroTitle}</h1>
+        <span class="font-['Space_Grotesk'] text-sm font-light tracking-[0.3em] text-[#18794E]/70 md:text-base dark:text-[#34d399]/60">SODAGREEN</span>
+      </div>
+      <p class="max-w-2xl font-['LXGW_WenKai'] text-2xl leading-relaxed text-gray-600 italic md:text-4xl md:leading-relaxed dark:text-white/80" id="lyric"></p>
+    </div>
+
+    <section class="relative z-10 w-full max-w-4xl px-4 pb-20">
+      <h2 class="mb-8 flex items-center justify-center gap-2 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span data-i18n="sectionTitle">{defaultT.sectionTitle}</span>
+      </h2>
+      <nav class="mb-8 flex justify-center gap-2" id="category-nav">
+        <button data-category="all" class="active rounded-full bg-[#18794E] px-4 py-1.5 text-sm text-white transition-colors" data-i18n="all">{defaultT.all}</button>
+        {categoryKeys.map((key) => (
+          <button data-category={key} class="cat-btn rounded-full bg-black/5 px-4 py-1.5 text-sm text-gray-600 transition-colors hover:bg-black/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" data-i18n-cat={key}>{defaultT.categories[key]}</button>
+        ))}
+      </nav>
+      <div class="grid gap-4 sm:grid-cols-2" id="projects-grid">
+        {projects.map((project) => (
+          <div data-project-category={project.category} data-project-key={project.key}>
+            <ProjectCard projectKey={project.key} category={project.category} icon={project.icon} url={project.url} />
+          </div>
+        ))}
+      </div>
+      <div class="mt-6 flex justify-center" id="expand-wrapper" style="display:none;">
+        <button id="expand-btn" class="rounded-full border border-[#18794E]/30 px-6 py-2 text-sm text-[#18794E] transition-colors hover:bg-[rgba(16,185,129,0.14)] dark:border-[#18794E]/50 dark:text-[#34d399] dark:hover:bg-[rgba(16,185,129,0.2)]" data-i18n="expandAll">{defaultT.expandAll}</button>
+      </div>
+    </section>
+
+    <section class="relative z-10 w-full max-w-4xl px-4 pb-20">
+      <h2 class="mb-8 flex items-center justify-center gap-2 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span data-i18n="linksSectionTitle">{defaultT.linksSectionTitle}</span>
+      </h2>
+      <div class="space-y-6">
+        {linkGroups.map((group) => (
+          <div data-link-group={group.key}>
+            <h3 class="mb-2 flex items-center gap-2 text-base font-bold text-gray-900 dark:text-white/80">
+              <Fragment set:html={getIcon(group.key)} />
+              <span data-i18n-link-group={group.key}>{defaultT.linkGroups[group.key]}</span>
+            </h3>
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+              {group.links.map((link) => (
+                <a href={link.url} target="_blank" rel="noopener noreferrer" class="group/link flex items-center gap-1 text-sm text-gray-700 transition-colors hover:text-[#18794E] dark:text-white/60 dark:hover:text-[#34d399]">
+                  <Fragment set:html={getIcon(link.key)} />
+                  <span data-i18n-platform={link.key}>{defaultT.platforms[link.key]}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+    <div id="info-dialog" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200" style="">
+      <div class="mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-xl dark:bg-[#2a2a3e]">
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white" data-i18n="infoTitle">{defaultT.infoTitle}</h3>
+          <button id="info-close" class="rounded-full p-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div class="space-y-3 text-sm leading-relaxed text-gray-600 dark:text-white/70">
+          <p data-i18n="infoLine1">{defaultT.infoLine1}</p>
+          <p data-i18n="infoLine2" data-i18n-html>{defaultT.infoLine2}</p>
+          <p data-i18n="infoLine3" data-i18n-html>{defaultT.infoLine3}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { translations } from '../data/i18n';
+  import type { Locale } from '../data/projects';
+
+  let currentLocale: Locale = (localStorage.getItem('locale') as Locale) || 'zh-Hant';
+  let expanded = false;
+  let lyricIndex = -1;
+
+  type TranslationKey = keyof typeof translations['zh-Hant'];
+
+  function t(key: TranslationKey) {
+    return translations[currentLocale][key] as string;
+  }
+
+  function applyLocale() {
+    const tr = translations[currentLocale];
+    document.documentElement.lang = currentLocale === 'zh-CN' ? 'zh-CN' : 'zh-Hant';
+    document.title = tr.pageTitle;
+
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n') as TranslationKey;
+      if (key && key in tr) {
+        if (el.hasAttribute('data-i18n-html')) {
+          el.innerHTML = tr[key as keyof typeof tr] as string;
+        } else {
+          el.textContent = tr[key as keyof typeof tr] as string;
+        }
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-cat]').forEach((el) => {
+      const cat = el.getAttribute('data-i18n-cat') as keyof typeof tr.categories;
+      if (cat in tr.categories) el.textContent = tr.categories[cat];
+    });
+
+    document.querySelectorAll('[data-i18n-link-group]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-link-group') as keyof typeof tr.linkGroups;
+      if (key in tr.linkGroups) el.textContent = tr.linkGroups[key];
+    });
+
+    document.querySelectorAll('[data-i18n-platform]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-platform') as keyof typeof tr.platforms;
+      if (key in tr.platforms) el.textContent = tr.platforms[key];
+    });
+
+    const lyric = document.getElementById('lyric');
+    if (lyric && lyricIndex >= 0 && tr.lyrics[lyricIndex]) {
+      const l = tr.lyrics[lyricIndex];
+      lyric.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="font-['Songti_SC','Songti_TC','SimSun','serif'] text-lg not-italic text-gray-500 md:text-xl dark:text-white/40">——〈${l.song}〉</span>`;
+    }
+
+    document.querySelectorAll('[data-project-key]').forEach((card) => {
+      const key = card.getAttribute('data-project-key')! as keyof typeof tr.projects;
+      const cat = card.getAttribute('data-project-category') as keyof typeof tr.categories;
+      const p = tr.projects[key];
+      if (!p) return;
+      const h3 = card.querySelector('[data-project-field="title"]');
+      const urlSpan = card.querySelector('.url-display');
+      const descP = card.querySelector('.desc-text');
+      const catSpan = card.querySelector('.cat-display');
+      if (h3) h3.textContent = p.title;
+      if (urlSpan) urlSpan.textContent = p.urlDisplay;
+      if (descP) descP.textContent = p.description;
+      if (catSpan && cat in tr.categories) catSpan.textContent = tr.categories[cat];
+    });
+
+    const expandBtn = document.getElementById('expand-btn');
+    if (expandBtn) expandBtn.textContent = expanded ? tr.collapse : tr.expandAll;
+
+    const langLabel = document.getElementById('lang-label');
+    if (langLabel) langLabel.textContent = currentLocale === 'zh-Hant' ? '繁' : '简';
+
+    localStorage.setItem('locale', currentLocale);
+  }
+
+  // Responsive background
+  const heroBg = document.getElementById('hero-bg');
+  if (heroBg) {
+    function updateBg() {
+      const isMobile = window.innerWidth < 768;
+      const src = isMobile ? heroBg.dataset.bgMobile : heroBg.dataset.bgDesktop;
+      if (src) heroBg.style.backgroundImage = `url('${src}')`;
+    }
+    updateBg();
+    window.addEventListener('resize', updateBg);
+  }
+
+  // Lang toggle
+  document.getElementById('lang-toggle')?.addEventListener('click', () => {
+    currentLocale = currentLocale === 'zh-Hant' ? 'zh-CN' : 'zh-Hant';
+    applyLocale();
+  });
+
+  // Theme
+  type Theme = 'light' | 'dark' | 'auto';
+  const themeSvgs: Record<Theme, string> = {
+    auto: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+    light: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+    dark: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>',
+  };
+  let currentTheme: Theme = (localStorage.getItem('theme') as Theme) || 'auto';
+
+  function applyTheme() {
+    const dark = currentTheme === 'dark' || (currentTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', dark);
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) themeToggle.innerHTML = themeSvgs[currentTheme];
+    localStorage.setItem('theme', currentTheme);
+  }
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const order: Theme[] = ['auto', 'light', 'dark'];
+    currentTheme = order[(order.indexOf(currentTheme) + 1) % order.length];
+    applyTheme();
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (currentTheme === 'auto') applyTheme();
+  });
+
+  // Lyrics
+  const lyrics = translations[currentLocale].lyrics;
+  const el = document.getElementById('lyric');
+  if (el) {
+    lyricIndex = Math.floor(Math.random() * lyrics.length);
+    const l = lyrics[lyricIndex];
+    el.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="font-['Songti_SC','Songti_TC','SimSun','serif'] text-lg not-italic text-gray-500 md:text-xl dark:text-white/40">——〈${l.song}〉</span>`;
+  }
+
+  // Project cards
+  const nav = document.getElementById('category-nav');
+  const cards = document.querySelectorAll('[data-project-key]');
+  const expandWrapper = document.getElementById('expand-wrapper');
+  const expandBtn = document.getElementById('expand-btn');
+  const VISIBLE_LIMIT = 6;
+
+  function updateCards(category: string) {
+    expanded = false;
+    let visibleCount = 0;
+    let totalCount = 0;
+
+    cards.forEach((card) => {
+      const cat = card.getAttribute('data-project-category');
+      const match = category === 'all' || cat === category;
+      if (match) {
+        totalCount++;
+        if (visibleCount < VISIBLE_LIMIT) {
+          (card as HTMLElement).style.display = '';
+          visibleCount++;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
+
+    if (expandWrapper) {
+      expandWrapper.style.display = totalCount > VISIBLE_LIMIT ? '' : 'none';
+    }
+    if (expandBtn) {
+      expandBtn.textContent = t('expandAll');
+    }
+  }
+
+  nav?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button');
+    if (!btn) return;
+
+    const category = btn.dataset.category;
+
+    nav.querySelectorAll('button').forEach((b) => {
+      b.classList.remove('active', 'bg-[#18794E]', 'text-white', 'hover:bg-[#18794E]/90');
+      b.classList.add('bg-black/5', 'text-gray-600', 'hover:bg-black/10', 'dark:bg-white/10', 'dark:text-white', 'dark:hover:bg-white/20');
+    });
+    btn.classList.add('active', 'bg-[#18794E]', 'text-white', 'hover:bg-[#18794E]/90');
+    btn.classList.remove('bg-black/5', 'text-gray-600', 'hover:bg-black/10', 'dark:bg-white/10', 'dark:text-white', 'dark:hover:bg-white/20');
+
+    updateCards(category!);
+  });
+
+  expandBtn?.addEventListener('click', () => {
+    if (expanded) {
+      expanded = false;
+      updateCards((nav?.querySelector('.active') as HTMLElement)?.dataset.category ?? 'all');
+      return;
+    }
+    expanded = true;
+    cards.forEach((card) => {
+      (card as HTMLElement).style.display = '';
+    });
+    if (expandWrapper) expandWrapper.style.display = '';
+    if (expandBtn) expandBtn.textContent = t('collapse');
+  });
+
+  // Info dialog
+  const infoDialog = document.getElementById('info-dialog');
+  document.getElementById('info-toggle')?.addEventListener('click', () => {
+    if (infoDialog) {
+      infoDialog.classList.remove('opacity-0', 'pointer-events-none');
+      infoDialog.classList.add('opacity-100', 'pointer-events-auto');
+    }
+  });
+  document.getElementById('info-close')?.addEventListener('click', () => {
+    if (infoDialog) {
+      infoDialog.classList.remove('opacity-100', 'pointer-events-auto');
+      infoDialog.classList.add('opacity-0', 'pointer-events-none');
+    }
+  });
+  infoDialog?.addEventListener('click', (e) => {
+    if (e.target === infoDialog) {
+      infoDialog.classList.remove('opacity-100', 'pointer-events-auto');
+      infoDialog.classList.add('opacity-0', 'pointer-events-none');
+    }
+  });
+
+  // Init
+  updateCards('all');
+  applyLocale();
+  applyTheme();
+</script>
