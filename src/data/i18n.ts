@@ -22,6 +22,8 @@ export const translations: Record<Locale, {
   infoTitle: string;
   infoLine1: string;
   infoLine2: string;
+  infoLine3: string;
+  infoLine4: string;
 }> = {
   'zh-Hant': {
     pageTitle: '蘇打綠 | Sodagreen',
@@ -115,6 +117,7 @@ export const translations: Record<Locale, {
     infoLine1: '本網頁為粉絲自發製作，非官方網頁，與蘇打綠官方無關，禁止任何人將該網站用於盈利或商業用途。',
     infoLine2: '若您認為該網頁侵犯了您的權益，請與我聯絡：<a href="mailto:carlo0901@163.com" class="text-[#18794E] underline dark:text-[#34d399]">carlo0901@163.com</a>。',
     infoLine3: '網頁作者：<a href="https://corecabin.cn/" target="_blank" rel="noopener noreferrer" class="text-[#18794E] underline dark:text-[#34d399]">卡洛 Carlo</a>',
+    infoLine4: '最後更新：2026-04-24',
   },
   'zh-CN': {
     pageTitle: '苏打绿 | Sodagreen',
@@ -208,5 +211,6 @@ export const translations: Record<Locale, {
     infoLine1: '本网页为粉丝自发制作，非官方网页，与苏打绿官方无关，禁止任何人将该网站用于盈利或商业用途。',
     infoLine2: '若您认为该网页侵犯了您的权益，请与我联络：<a href="mailto:carlo0901@163.com" class="text-[#18794E] underline dark:text-[#34d399]">carlo0901@163.com</a>。',
     infoLine3: '网页作者：<a href="https://corecabin.cn/" target="_blank" rel="noopener noreferrer" class="text-[#18794E] underline dark:text-[#34d399]">卡洛 Carlo</a>',
+    infoLine4: '最后更新：2026-04-24',
   },
 };
