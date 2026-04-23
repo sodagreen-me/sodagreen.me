@@ -36,31 +36,32 @@ const defaultT = translations['zh-Hant'];
 ---
 
 <Layout title={defaultT.pageTitle}>
-  <main class="relative flex min-h-screen flex-col items-center overflow-hidden">
-    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-gradient-to-b from-gray-100 to-gray-200 dark:from-[#0f0f23] dark:to-[#0a0a18]" id="hero-bg"
+  <main class="relative flex min-h-screen flex-col items-center">
+    <div class="fixed -top-[12vh] -bottom-[18vh] inset-x-0 bg-cover bg-center bg-no-repeat bg-gradient-to-b from-gray-100 to-gray-200 -z-10 md:inset-0 dark:from-[#0f0f23] dark:to-[#0a0a18]" id="hero-bg"
       style={`background-image: url('${bgMobile.src}');`}
       data-bg-mobile={bgMobile.src}
       data-bg-desktop={bgDesktop.src}
     ></div>
-    <div class="absolute inset-0 bg-white/80 dark:bg-black/60"></div>
-    <div class="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 px-4 py-20 text-center md:py-28">
-      <div class="flex flex-col items-center gap-1">
-        <h1 class="text-3xl font-bold tracking-wide text-gray-900 md:text-4xl dark:text-white" data-i18n="heroTitle">{defaultT.heroTitle}</h1>
-        <span class="font-['Space_Grotesk'] text-sm font-light tracking-[0.3em] text-[#18794E]/70 md:text-base dark:text-[#34d399]/60">SODAGREEN</span>
+    <div class="fixed -top-[12vh] -bottom-[18vh] inset-x-0 bg-white/80 -z-10 md:inset-0 dark:bg-black/60"></div>
+    <div class="relative flex h-screen w-full shrink-0 flex-col items-center justify-between overflow-hidden">
+      <div class="relative z-10 flex w-full flex-1 flex-col items-center justify-start px-4 pt-[calc(var(--top-controls-height,64px)+8px)] text-center md:pt-3">
+        <div class="flex flex-col items-center gap-1">
+          <h1 class="song-title-font text-3xl font-bold tracking-wide text-gray-900 md:text-4xl dark:text-white" data-i18n="heroTitle">{defaultT.heroTitle}</h1>
+          <span class="font-['Space_Grotesk'] text-sm font-light tracking-[0.3em] text-[#18794E]/70 md:text-base dark:text-[#34d399]/60">SODAGREEN</span>
+        </div>
+        <p class="mt-[14vh] max-w-2xl font-['LXGW_WenKai'] text-2xl leading-relaxed text-gray-600 italic md:mt-12 md:max-w-5xl md:text-5xl md:leading-relaxed dark:text-white/80" id="lyric"></p>
       </div>
-      <p class="max-w-2xl font-['LXGW_WenKai'] text-2xl leading-relaxed text-gray-600 italic md:text-4xl md:leading-relaxed dark:text-white/80" id="lyric"></p>
+      <div class="relative z-10 grid w-[92%] grid-cols-3 justify-items-center gap-2 px-4 pb-12 md:mx-auto md:flex md:w-[78%] md:justify-center md:gap-4 md:px-0 md:pb-12">
+        {stickers.map((s) => (
+          <span class="contents">
+            <img src={s.light.src} alt="" class="h-28 w-auto md:h-36 dark:hidden" loading="lazy" />
+            <img src={s.dark.src} alt="" class="hidden h-28 w-auto md:h-36 dark:block" loading="lazy" />
+          </span>
+        ))}
+      </div>
     </div>
 
-    <div class="relative z-10 mb-10 grid w-[92%] grid-cols-3 justify-items-center gap-2 px-4 md:mx-auto md:flex md:w-[78%] md:justify-center md:gap-4 md:px-0">
-      {stickers.map((s) => (
-        <span class="contents">
-          <img src={s.light.src} alt="" class="h-28 w-auto md:h-36 dark:hidden" loading="lazy" />
-          <img src={s.dark.src} alt="" class="hidden h-28 w-auto md:h-36 dark:block" loading="lazy" />
-        </span>
-      ))}
-    </div>
-
-    <section class="relative z-10 w-full max-w-4xl px-4 pb-20">
+    <section class="relative z-10 w-full max-w-4xl px-4 pt-14 pb-20 md:pt-20">
       <h2 class="mb-8 flex items-center justify-center gap-2 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span data-i18n="sectionTitle">{defaultT.sectionTitle}</span>
@@ -174,7 +175,7 @@ const defaultT = translations['zh-Hant'];
     const lyric = document.getElementById('lyric');
     if (lyric && lyricIndex >= 0 && tr.lyrics[lyricIndex]) {
       const l = tr.lyrics[lyricIndex];
-      lyric.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="font-['Songti_SC','Songti_TC','SimSun','serif'] text-lg not-italic text-gray-500 md:text-xl dark:text-white/40">——〈${l.song}〉</span>`;
+      lyric.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="song-title-font text-xl not-italic font-medium text-gray-500 md:text-2xl dark:text-white/40">——〈${l.song}〉</span>`;
     }
 
     document.querySelectorAll('[data-project-key]').forEach((card) => {
@@ -252,7 +253,7 @@ const defaultT = translations['zh-Hant'];
   if (el) {
     lyricIndex = Math.floor(Math.random() * lyrics.length);
     const l = lyrics[lyricIndex];
-    el.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="font-['Songti_SC','Songti_TC','SimSun','serif'] text-lg not-italic text-gray-500 md:text-xl dark:text-white/40">——〈${l.song}〉</span>`;
+    el.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="song-title-font text-lg not-italic font-medium text-gray-500 md:text-xl dark:text-white/40">——〈${l.song}〉</span>`;
   }
 
   // Project cards

@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+.song-title-font {
+  font-family: 'Noto Serif TC', 'Noto Serif SC', 'Songti SC', 'Songti TC', 'STSong',
+    'Source Han Serif TC', 'Source Han Serif SC', 'PMingLiU', 'MingLiU', 'SimSun', serif;
+}
