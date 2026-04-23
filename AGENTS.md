@@ -18,9 +18,13 @@
 - 图片加载前显示渐变色 fallback
 - 图片由 Astro 自动优化和 hash
 
-### 3. 人物 LOGO ⏳
-- 用户将提供的苏打绿成员趣味 LOGO 图片
-- 需预留图片资源位，展示方式待定（可能为横向排列或悬浮动画）
+### 3. 人物 LOGO ✅
+- 6 个苏打绿成员趣味贴纸（hjy、wqf、gyq、sjw、xxy、ljk）
+- 位于歌词下方、项目卡片上方
+- 桌面端：单排横排，宽度 78%，高度 144px
+- 移动端：3×2 网格两排，宽度 92%，高度 112px
+- 亮色/深色模式各一套图片，深色模式使用反色版本
+- 原图存档在 `public/images/stickers/`，web 版在 `src/images/stickers/`
 
 ### 4. 项目卡片（重点）✅
 - 展示用户做过的与苏打绿相关的项目
@@ -50,9 +54,9 @@
 - 偏好持久化到 localStorage，auto 模式监听系统变化
 
 ### 8. Favicon ✅
-- SVG 矢量 favicon：四个苏打气泡（粉/绿/红/蓝），透明背景
-- 32x32 PNG fallback
-- 180x180 Apple Touch Icon（浅紫底色版本）
+- PNG favicon（64x64，透明底，由 export_tp.png 缩放生成）
+- 180x180 Apple Touch Icon（带背景版，由 export_bg.png 缩放生成）
+- 原图存档在 `public/`（export_tp.png、export_bg.png）
 
 ## Technical Notes
 
@@ -70,13 +74,20 @@
 ```
 sodagreen.me/
 ├── public/
-│   ├── favicon.svg
-│   ├── favicon-apple.svg
 │   ├── favicon.png
 │   ├── apple-touch-icon.png
+│   ├── export_tp.png
+│   ├── export_bg.png
 │   └── images/
 │       ├── bg.jpg
-│       └── podcast-icon.png
+│       ├── podcast-icon.png
+│       └── stickers/
+│           ├── hjy_tp.png / hjy_tp_dark.png
+│           ├── wqf_tp.png / wqf_tp_dark.png
+│           ├── gyq_tp.png / gyq_tp_dark.png
+│           ├── sjw_tp.png / sjw_tp_dark.png
+│           ├── xxy_tp.png / xxy_tp_dark.png
+│           └── ljk_tp.png / ljk_tp_dark.png
 ├── src/
 │   ├── layouts/
 │   │   └── Layout.astro
@@ -91,7 +102,14 @@ sodagreen.me/
 │   │   └── icons.ts          # SVG 图标集合
 │   ├── images/
 │   │   ├── bg.jpg            # 桌面端背景图
-│   │   └── bg-mobile.jpg     # 移动端背景图
+│   │   ├── bg-mobile.jpg     # 移动端背景图
+│   │   └── stickers/         # Web 版成员贴纸（200px 缩放）
+│   │       ├── hjy.png / hjy_tp-dark.png
+│   │       ├── wqf.png / wqf_tp-dark.png
+│   │       ├── gyq.png / gyq_tp-dark.png
+│   │       ├── sjw.png / sjw_tp-dark.png
+│   │       ├── xxy.png / xxy_tp-dark.png
+│   │       └── ljk.png / ljk_tp-dark.png
 │   └── styles/
 │       └── global.css
 ├── astro.config.mjs
@@ -108,7 +126,6 @@ sodagreen.me/
 ## Deployment Status
 
 构建成功，可部署。待办：
-- [ ] 人物 LOGO（等用户提供图片）
 - [ ] Footer 页脚（可选）
 - [ ] SEO meta tags（可选）
 - [ ] 移动端细节测试

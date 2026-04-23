@@ -9,6 +9,29 @@ import { translations } from '../data/i18n';
 import bgMobile from '../images/bg-mobile.jpg';
 import bgDesktop from '../images/bg.jpg';
 
+import stickerWqf from '../images/stickers/wqf.png';
+import stickerLjk from '../images/stickers/ljk.png';
+import stickerSjw from '../images/stickers/sjw.png';
+import stickerGyq from '../images/stickers/gyq.png';
+import stickerXxy from '../images/stickers/xxy.png';
+import stickerHjy from '../images/stickers/hjy.png';
+
+import stickerWqfDark from '../images/stickers/wqf-dark.png';
+import stickerLjkDark from '../images/stickers/ljk-dark.png';
+import stickerSjwDark from '../images/stickers/sjw-dark.png';
+import stickerGyqDark from '../images/stickers/gyq-dark.png';
+import stickerXxyDark from '../images/stickers/xxy-dark.png';
+import stickerHjyDark from '../images/stickers/hjy-dark.png';
+
+const stickers = [
+  { light: stickerHjy, dark: stickerHjyDark },
+  { light: stickerWqf, dark: stickerWqfDark },
+  { light: stickerGyq, dark: stickerGyqDark },
+  { light: stickerSjw, dark: stickerSjwDark },
+  { light: stickerXxy, dark: stickerXxyDark },
+  { light: stickerLjk, dark: stickerLjkDark },
+];
+
 const defaultT = translations['zh-Hant'];
 ---
 
@@ -26,6 +49,15 @@ const defaultT = translations['zh-Hant'];
         <span class="font-['Space_Grotesk'] text-sm font-light tracking-[0.3em] text-[#18794E]/70 md:text-base dark:text-[#34d399]/60">SODAGREEN</span>
       </div>
       <p class="max-w-2xl font-['LXGW_WenKai'] text-2xl leading-relaxed text-gray-600 italic md:text-4xl md:leading-relaxed dark:text-white/80" id="lyric"></p>
+    </div>
+
+    <div class="relative z-10 mb-10 grid w-[92%] grid-cols-3 justify-items-center gap-2 px-4 md:mx-auto md:flex md:w-[78%] md:justify-center md:gap-4 md:px-0">
+      {stickers.map((s) => (
+        <span class="contents">
+          <img src={s.light.src} alt="" class="h-28 w-auto md:h-36 dark:hidden" loading="lazy" />
+          <img src={s.dark.src} alt="" class="hidden h-28 w-auto md:h-36 dark:block" loading="lazy" />
+        </span>
+      ))}
     </div>
 
     <section class="relative z-10 w-full max-w-4xl px-4 pb-20">
