@@ -1,4 +1,4 @@
-export type ProjectKey = 'sodaguide' | '2024-report' | 'soda-yinpa' | 'soda-life' | 'soda-lyric';
+export type ProjectKey = 'sodaguide' | '2024-report' | 'soda-yinpa' | 'soda-life' | 'soda-lyrics';
 export type CategoryKey = 'resource' | 'interactive' | 'media';
 export type Locale = 'zh-Hant' | 'zh-CN';
 
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     category: 'interactive',
   },
   {
-    key: 'soda-lyric',
+    key: 'soda-lyrics',
     icon: '',
     url: '#',
     category: 'resource',

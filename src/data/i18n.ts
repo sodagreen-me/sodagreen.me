@@ -59,7 +59,7 @@ export const translations: Record<Locale, {
         description: '敬請期待',
         urlDisplay: '敬請期待',
       },
-      'soda-lyric': {
+      'soda-lyrics': {
         title: 'SODA·LYRICS',
         description: '敬請期待',
         urlDisplay: '敬請期待',
@@ -159,7 +159,7 @@ export const translations: Record<Locale, {
         description: '敬请期待',
         urlDisplay: '敬请期待',
       },
-      'soda-lyric': {
+      'soda-lyrics': {
         title: 'SODA·LYRICS',
         description: '敬请期待',
         urlDisplay: '敬请期待',
