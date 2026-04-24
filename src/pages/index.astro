@@ -90,7 +90,7 @@ const defaultT = translations['zh-Hant'];
         <span data-i18n="linksSectionTitle">{defaultT.linksSectionTitle}</span>
       </h2>
       <div class="space-y-6">
-        {linkGroups.map((group) => (
+        {linkGroups.filter(g => g.type !== 'member').map((group) => (
           <div data-link-group={group.key}>
             <h3 class="mb-2 flex items-center gap-2 text-base font-bold text-gray-900 dark:text-white/80">
               <Fragment set:html={getIcon(group.key)} />
@@ -107,6 +107,30 @@ const defaultT = translations['zh-Hant'];
             </div>
           </div>
         ))}
+      </div>
+      <div class="mt-8">
+        <h3 class="mb-4 flex items-center justify-center gap-2 text-base font-bold text-gray-900 dark:text-white/80">
+          <span data-i18n="membersSectionTitle">{defaultT.membersSectionTitle}</span>
+        </h3>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {linkGroups.filter(g => g.type === 'member').map((group) => (
+            <div data-link-group={group.key}>
+              <h4 class="mb-2 flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white/80">
+                <Fragment set:html={getIcon(group.key)} />
+                <span data-i18n-link-group={group.key}>{defaultT.linkGroups[group.key]}</span>
+              </h4>
+              <div class="flex flex-wrap gap-x-5 gap-y-2">
+                {group.links.map((link) => (
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" class="group/link flex items-center gap-1 text-sm text-gray-700 transition-colors hover:text-[#18794E] dark:text-white/60 dark:hover:text-[#34d399]">
+                    <Fragment set:html={getIcon(link.key)} />
+                    <span data-i18n-platform={link.key}>{defaultT.platforms[link.key]}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
     <div id="info-dialog" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200" style="">

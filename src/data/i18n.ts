@@ -18,6 +18,7 @@ export const translations: Record<Locale, {
   lyrics: { text: string; song: string }[];
   linksSectionTitle: string;
   linkGroups: Record<string, string>;
+  membersSectionTitle: string;
   platforms: Record<string, string>;
   infoTitle: string;
   infoLine1: string;
@@ -101,9 +102,15 @@ export const translations: Record<Locale, {
     linksSectionTitle: '外部連結',
     linkGroups: {
       sodagreen: '蘇打綠 aka 魚丁糸',
-      qingfeng: '吳青峰',
       tour20th: '蘇打綠二十年一刻巡迴演唱會',
+      qingfeng: '吳青峰（青峰）',
+      afu: '何景揚（阿福）',
+      xiaowei: '史俊威（小威）',
+      agong: '龔鈺祺（阿龔）',
+      xinyi: '謝馨儀（馨儀）',
+      jiakai: '劉家凱（家凱）',
     },
+    membersSectionTitle: '團員個人',
     platforms: {
       website: '官網',
       weibo: '微博',
@@ -195,9 +202,15 @@ export const translations: Record<Locale, {
     linksSectionTitle: '外部链接',
     linkGroups: {
       sodagreen: '苏打绿 aka 鱼丁糸',
-      qingfeng: '吴青峰',
       tour20th: '苏打绿二十年一刻巡回演唱会',
+      qingfeng: '吴青峰（青峰）',
+      afu: '何景扬（阿福）',
+      xiaowei: '史俊威（小威）',
+      agong: '龚钰祺（阿龚）',
+      xinyi: '谢馨仪（馨仪）',
+      jiakai: '刘家凯（家凯）',
     },
+    membersSectionTitle: '团员个人',
     platforms: {
       website: '官网',
       weibo: '微博',
