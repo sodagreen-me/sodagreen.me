@@ -55,8 +55,8 @@ const defaultT = translations['zh-Hant'];
       <div class="relative z-10 grid w-[92%] grid-cols-3 justify-items-center gap-2 px-4 pb-12 md:mx-auto md:flex md:w-[78%] md:justify-center md:gap-4 md:px-0 md:pb-12">
         {stickers.map((s, i) => (
           <span class="contents" {...(i === 1 ? { 'data-sticker': 'wqf' } : {})}>
-            <img src={s.light.src} alt="" class={`h-28 w-auto md:h-36 dark:hidden${i === 1 ? ' cursor-pointer' : ''}`} loading="lazy" />
-            <img src={s.dark.src} alt="" class={`hidden h-28 w-auto md:h-36 dark:block${i === 1 ? ' cursor-pointer' : ''}`} loading="lazy" />
+            <img src={s.light.src} alt="" class={'h-28 w-auto md:h-36 dark:hidden' + (i === 1 ? ' cursor-pointer' : '')} loading="lazy" />
+            <img src={s.dark.src} alt="" class={'hidden h-28 w-auto md:h-36 dark:block' + (i === 1 ? ' cursor-pointer' : '')} loading="lazy" />
           </span>
         ))}
       </div>
