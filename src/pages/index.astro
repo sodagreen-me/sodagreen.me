@@ -154,7 +154,8 @@ const defaultT = translations['zh-Hant'];
 </Layout>
 
 <script>
-  import { translations } from '../data/i18n';
+import { translations } from '../data/i18n';
+import { lyrics } from '../data/lyrics';
   import type { Locale } from '../data/projects';
 
   let currentLocale: Locale = (localStorage.getItem('locale') as Locale) || 'zh-Hant';
@@ -199,8 +200,9 @@ const defaultT = translations['zh-Hant'];
     });
 
     const lyric = document.getElementById('lyric');
-    if (lyric && lyricIndex >= 0 && tr.lyrics[lyricIndex]) {
-      const l = tr.lyrics[lyricIndex];
+    const currentLyrics = lyrics[currentLocale];
+    if (lyric && lyricIndex >= 0 && currentLyrics[lyricIndex]) {
+      const l = currentLyrics[lyricIndex];
       lyric.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="song-title-font text-xl not-italic font-medium text-gray-500 md:text-2xl dark:text-white/40">——〈${l.song}〉</span>`;
     }
 
@@ -274,11 +276,11 @@ const defaultT = translations['zh-Hant'];
   });
 
   // Lyrics
-  const lyrics = translations[currentLocale].lyrics;
+  const currentLyrics = lyrics[currentLocale];
   const el = document.getElementById('lyric');
   if (el) {
-    lyricIndex = Math.floor(Math.random() * lyrics.length);
-    const l = lyrics[lyricIndex];
+    lyricIndex = Math.floor(Math.random() * currentLyrics.length);
+    const l = currentLyrics[lyricIndex];
     el.innerHTML = `${l.text.replace(/\n/g, '<br>')}<br><span class="song-title-font text-lg not-italic font-medium text-gray-500 md:text-xl dark:text-white/40">——〈${l.song}〉</span>`;
   }
 
